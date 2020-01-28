@@ -4,9 +4,6 @@ const search = document.querySelector('.search-container');
 // ------------------------------------------
 //  FUNCTIONS FROM API REQUEST WORKSHOP
 // ------------------------------------------
-// ------------------------------------------
-//  FETCH FUNCTIONS
-// ------------------------------------------
 function fetchData(url) {
     return fetch(url)
       .then(checkStatus)
@@ -26,4 +23,27 @@ function fetchData(url) {
 // ------------------------------------------
 
 fetchData('https://randomuser.me/api/?results=12')
-  .then( data=> console.log(data) )
+    .then( data=> console.log(data) )
+    .then( data=>generateHTML(data.message) )
+
+// ------------------------------------------
+//  HELP FUNCTION
+// ------------------------------------------
+
+function generateHTML(data){
+    data.map( person=> {
+        const card = document.createElement('div.card');
+        gallery.appendChild(card);
+        card.innerHTML=`
+            <div class="card-img-container">
+            
+            </div>
+            <div class="card-info-container">
+                <h3 id="name" class="card-name cap">first last</h3>
+                <p class="card-text">email</p>
+                <p class="card-text cap">city, state</p>
+            </div>
+        `;
+
+    } );
+}
