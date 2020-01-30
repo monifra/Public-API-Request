@@ -23,26 +23,28 @@ function fetchData(url) {
 // ------------------------------------------
 
 fetchData('https://randomuser.me/api/?results=12')
-    .then( data=> console.log(data) )
-    .then( data=>generateHTML(data.message) )
+  //  .then( data=> console.log(data) )
+  // .then( data=> console.log( Object.values(data) ) )
+  .then( data=> generateHTML( Object.values( data ) ) ) //converting object to an array
 
 // ------------------------------------------
 //  HELP FUNCTION
 // ------------------------------------------
 
 function generateHTML(data){
-    data.map( person=> {
-        const card = document.createElement('div.card');
+    data[0].map( person=> {
+        const card = document.createElement('div');
+        card.className = 'card';
         gallery.appendChild(card);
         card.innerHTML=`
-            <div class="card-img-container">
-            
-            </div>
-            <div class="card-info-container">
-                <h3 id="name" class="card-name cap">first last</h3>
-                <p class="card-text">email</p>
-                <p class="card-text cap">city, state</p>
-            </div>
+          <div class="card-img-container">
+            <img class='card-img' src=${person.picture.large} alt='profile picture'>
+          </div>
+          <div class="card-info-container">
+            <h3 id="name" class="card-name cap">${person.name.first} ${person.name.last}</h3>
+            <p class="card-text">${person.email}</p>
+            <p class="card-text cap">${person.location.city}, ${person.location.state}</p>
+          </div>
         `;
 
     } );
