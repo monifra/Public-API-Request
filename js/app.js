@@ -7,14 +7,12 @@ let userInfoArr =[];
 // ------------------------------------------
 //  FUNCTIONS FROM API REQUEST WORKSHOP
 // ------------------------------------------
-
 function fetchData(url) {
     return fetch(url)
       .then(checkStatus)
-      .then( res=> res.json() )
-      .catch( err=> console.log('Looks like there was a problem', err) )
+      .then( res => res.json() )
+      .catch( err => console.log('Looks like there was a problem', err) )
   }
-
   function checkStatus(response){
     if (response.ok){
       return Promise.resolve(response);
@@ -22,17 +20,14 @@ function fetchData(url) {
       return Promise.reject(new Error(response.statusText) );
     }
   }
-
 // ------------------------------------------
 //  FETCH FUNCTIONS
 // ------------------------------------------
-
 fetchData('https://randomuser.me/api/?results=12&?nat=us')
-  .then( data=>
-    generateHTML( Object.values( data ) ) //converting object to an array
-  )
-
-
+  .then( data=> {
+    generateHTML( Object.values( data ) );
+    userInfoArr = data.results; // store data in var
+  })
 
 // ------------------------------------------
 //  HELP FUNCTION
@@ -103,3 +98,8 @@ modalWindow.addEventListener('click', (e)=> {
     gallery.removeChild(cardGallery);
   }
 } );
+
+// userInfoArr.map(person=>{
+//   console.log(person);
+// }
+//   );
