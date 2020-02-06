@@ -74,8 +74,8 @@ function generateModal(user){
             <p class="modal-text cap">${user.location.city}</p>
             <hr>
             <p class="modal-text">${user.phone}</p>
-            <p class="modal-text">${user.location.street.number} Portland Ave., Portland, OR 97204</p>
-            <p class="modal-text">Birthday: 10/21/2015</p>
+            <p class="modal-text">${user.location.street.number} ${user.location.street.name}, ${user.location.country}, ${user.location.postcode}</p>
+            <p class="modal-text">Birthday: ${user.dob.date}</p>
         </div>
       </div>
       <div class="modal-btn-container">
