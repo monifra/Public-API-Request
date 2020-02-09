@@ -2,6 +2,7 @@ const gallery = document.querySelector('#gallery');
 const search = document.querySelector('.search-container');
 const scriptTag = document.querySelector('script');
 const body = document.querySelector('body');
+const modalButtonsParent = document.querySelector('.modal-btn-container');
 let userInfo = [];
 // ------------------------------------------
 //  RANDOM USER GENERATOR
@@ -50,7 +51,7 @@ function generateHTML(data){
           <div class="card-info-container">
             <h3 id="name" class="card-name cap">${person.name.first} ${person.name.last}</h3>
             <p class="card-text">${person.email}</p>
-            <p class="card-text cap">${person.location.city}, ${person.location.state}</p>
+            <p class="card-text cap">${person.location.city}</p>
           </div>
         `;
         gallery.appendChild(card);
@@ -146,13 +147,18 @@ body.addEventListener('click', (e)=> {
   }
 } );
 
-search.addEventListener('keyup',(e)=>{
+modalButtonsParent.addEventListener('click',(e)=> {
+  const prevButton = document.querySelector('#modal-prev');
+  const nextButton = document.querySelector('#modal-next');
+} );
+
+search.addEventListener('keyup',(e)=> {
   const allUsersNames = document.querySelectorAll('#name');
   const input = document.querySelector('.search-input');
   searchIt(input, allUsersNames);
 } );
 
-search.addEventListener('click',(e)=>{
+search.addEventListener('click',(e)=> {
   const allUsersNames = document.querySelectorAll('#name');
   const input = document.querySelector('.search-input');
   searchIt(input, allUsersNames);
