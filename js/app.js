@@ -25,7 +25,7 @@ function fetchData(url) {
 // ------------------------------------------
 //  FETCH FUNCTIONS
 // ------------------------------------------
-fetchData('https://randomuser.me/api/?results=12&?nat=us')
+fetchData('https://randomuser.me/api/?results=12&nat=us')
   .then( data=> {
     generateHTML( Object.values( data ) );
     // userInfo = data.results; // store data in var
@@ -63,19 +63,26 @@ function generateHTML(data){
 function generateModal(user){
     const cards = document.querySelectorAll('.card');
     const cardGallery = document.createElement('div');
+    const birthday = `${user.dob.date}`;
+    let regexBirthday = birthday.replace(/\D/g, '');
+    const birthdayPattern = /^(\d)(\d)(\d)(\d)(\d)(\d)(\d)(\d)/gm;
+    const secondBirthday = regexBirthday.replace(birthdayPattern, '$7$8/$5$6/$3$4 ');
+    const thirdBirthday = secondBirthday.split(' ')[0];
+    const telephoneNumber = `${user.phone}`;
+    const rightNumber = telephoneNumber.replace( '-' , ' ');
     cardGallery.className = 'modal-container';
     cardGallery.innerHTML=`
       <div class="modal">
-        <button type="button" id="modal-close-btn" class="modal-close-btn"><strong class='btn'>X</strong></button>
+        <button type="button" id="modal-close-btn" class="modal-close-btn"><strong class='close'>X</strong></button>
         <div class="modal-info-container">
             <img class="modal-img" src=${user.picture.large} alt="profile picture">
             <h3 id="name" class="modal-name cap">${user.name.first} ${user.name.last}</h3>
             <p class="modal-text">${user.email}</p>
             <p class="modal-text cap">${user.location.city}</p>
             <hr>
-            <p class="modal-text">${user.phone}</p>
-            <p class="modal-text">${user.location.street.number} ${user.location.street.name}, ${user.location.country}, ${user.location.postcode}</p>
-            <p class="modal-text">Birthday: ${user.dob.date}</p>
+            <p class="modal-text">${rightNumber}</p>
+            <p class="modal-text">${user.location.street.number} ${user.location.street.name}, ${user.location.state}, ${user.location.postcode}</p>
+            <p class="modal-text">Birthday: ${thirdBirthday}</p>
         </div>
       </div>
       <div class="modal-btn-container">
@@ -109,7 +116,7 @@ gallery.addEventListener('click', (e)=> {
 body.addEventListener('click', (e)=> {
   const clicked = e.target;
   const cardGallery = document.querySelector('.modal-container');
-  if(clicked.className.includes('btn')){
+  if(clicked.className.includes('close')){
     body.removeChild(cardGallery);
   }
 } );
