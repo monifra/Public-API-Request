@@ -96,6 +96,31 @@ function generateModal(user){
 //  SEARCH
 // ------------------------------------------
 
+const searchBar = document.createElement('form');
+searchBar.setAttribute('action','#');
+searchBar.setAttribute('method','get');
+searchBar.innerHTML=`
+  <input type="text" id="search-input" class="search-input" placeholder="Search...">
+  <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+`;
+search.appendChild(searchBar);
+
+function searchIt(input, list){
+
+  [...list].forEach(user=>{
+    const card = user.parentNode.parentNode;
+    const name = user.textContent;
+    if(name.toLowerCase().includes(input.value.toLowerCase())){ //check if our student name is included in the value of input
+      card.style.display = '';
+    }else{
+      card.style.display = 'none';
+    }
+    if(input.value.length === 0){
+      card.style.display ='';
+    }
+  });
+}
+
 // ------------------------------------------
 //  EVENT LISTENERS
 // ------------------------------------------
@@ -119,4 +144,16 @@ body.addEventListener('click', (e)=> {
   if(clicked.className.includes('close')){
     body.removeChild(cardGallery);
   }
+} );
+
+search.addEventListener('keyup',(e)=>{
+  const allUsersNames = document.querySelectorAll('#name');
+  const input = document.querySelector('.search-input');
+  searchIt(input, allUsersNames);
+} );
+
+search.addEventListener('click',(e)=>{
+  const allUsersNames = document.querySelectorAll('#name');
+  const input = document.querySelector('.search-input');
+  searchIt(input, allUsersNames);
 } );
