@@ -4,6 +4,7 @@ const scriptTag = document.querySelector('script');
 const body = document.querySelector('body');
 const modalButtonsParent = document.querySelector('.modal-btn-container');
 let userInfo = [];
+let cardIndex;
 // ------------------------------------------
 //  RANDOM USER GENERATOR
 // ------------------------------------------
@@ -126,11 +127,12 @@ function searchIt(input, list){
 //  EVENT LISTENERS
 // ------------------------------------------
 
+
 gallery.addEventListener('click', (e)=> {
   const cards = document.getElementsByClassName('card');
   [...cards].forEach( (card)=>{
     if( e.composedPath().includes(card) ){
-      const cardIndex = [...cards].indexOf(card);
+      cardIndex = [...cards].indexOf(card);
       console.log(cardIndex, card);
       generateModal(userInfo[cardIndex]);
     } 
@@ -147,9 +149,18 @@ body.addEventListener('click', (e)=> {
   }
 } );
 
-modalButtonsParent.addEventListener('click',(e)=> {
+body.addEventListener('click',(e)=> {
+  const clicked = e.target;
+  const existingModal = document.querySelector('.modal-container');
   const prevButton = document.querySelector('#modal-prev');
   const nextButton = document.querySelector('#modal-next');
+  if( clicked === prevButton ){
+    body.removeChild(existingModal);
+    generateModal(userInfo[cardIndex-1]);
+  } else if( clicked === nextButton ){
+    body.removeChild(existingModal);
+    generateModal(userInfo[cardIndex+1]);
+  }
 } );
 
 search.addEventListener('keyup',(e)=> {
