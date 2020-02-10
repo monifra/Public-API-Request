@@ -150,17 +150,21 @@ body.addEventListener('click', (e)=> {
 } );
 
 body.addEventListener('click',(e)=> {
+  const cards = document.getElementsByClassName('card');
   const clicked = e.target;
   const existingModal = document.querySelector('.modal-container');
   const prevButton = document.querySelector('#modal-prev');
   const nextButton = document.querySelector('#modal-next');
-  if( clicked === prevButton ){
-    body.removeChild(existingModal);
-    generateModal(userInfo[cardIndex-1]);
-  } else if( clicked === nextButton ){
-    body.removeChild(existingModal);
-    generateModal(userInfo[cardIndex+1]);
-  }
+    if( clicked === prevButton ){
+      body.removeChild(existingModal);
+      generateModal(userInfo[cardIndex-1]);
+      cardIndex-=1;
+    } else if( clicked === nextButton ){
+      body.removeChild(existingModal);
+      generateModal(userInfo[cardIndex+1]);
+      cardIndex+=1;
+    }
+
 } );
 
 search.addEventListener('keyup',(e)=> {
