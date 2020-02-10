@@ -1,3 +1,9 @@
+// ------------------------------------------
+//  RANDOM USER GENERATOR
+// ------------------------------------------
+// ------------------------------------------
+//  GLOBAL VARIABLES
+// ------------------------------------------
 const gallery = document.querySelector('#gallery');
 const search = document.querySelector('.search-container');
 const scriptTag = document.querySelector('script');
@@ -5,9 +11,6 @@ const body = document.querySelector('body');
 const modalButtonsParent = document.querySelector('.modal-btn-container');
 let userInfo = [];
 let cardIndex;
-// ------------------------------------------
-//  RANDOM USER GENERATOR
-// ------------------------------------------
 // ------------------------------------------
 //  FUNCTIONS FROM API REQUEST WORKSHOP
 // ------------------------------------------
@@ -35,11 +38,9 @@ fetchData('https://randomuser.me/api/?results=12&nat=us')
        userInfo.push(data);
     })
   })
-
 // ------------------------------------------
 //  HELP FUNCTION
 // ------------------------------------------
-
 function generateHTML(data){
     
     data[0].map( person=> {
@@ -58,7 +59,6 @@ function generateHTML(data){
         gallery.appendChild(card);
     } );
 }
-
 // ------------------------------------------
 //  MODAL WINDOW
 // ------------------------------------------
@@ -97,7 +97,6 @@ function generateModal(user){
 // ------------------------------------------
 //  SEARCH
 // ------------------------------------------
-
 const searchBar = document.createElement('form');
 searchBar.setAttribute('action','#');
 searchBar.setAttribute('method','get');
@@ -122,12 +121,9 @@ function searchIt(input, list){
     }
   });
 }
-
 // ------------------------------------------
 //  EVENT LISTENERS
 // ------------------------------------------
-
-
 gallery.addEventListener('click', (e)=> {
   const cards = document.getElementsByClassName('card');
   [...cards].forEach( (card)=>{
@@ -139,8 +135,6 @@ gallery.addEventListener('click', (e)=> {
   } );
 });
 
-//Still need a solution for closing modal when you clicked on the background
-
 body.addEventListener('click', (e)=> {
   const clicked = e.target;
   const cardGallery = document.querySelector('.modal-container');
@@ -151,20 +145,32 @@ body.addEventListener('click', (e)=> {
 
 body.addEventListener('click',(e)=> {
   const cards = document.getElementsByClassName('card');
+  const cardsLength = cards.length;
   const clicked = e.target;
   const existingModal = document.querySelector('.modal-container');
   const prevButton = document.querySelector('#modal-prev');
   const nextButton = document.querySelector('#modal-next');
     if( clicked === prevButton ){
-      body.removeChild(existingModal);
-      generateModal(userInfo[cardIndex-1]);
-      cardIndex-=1;
+      if(cardIndex === 0){
+        body.removeChild(existingModal);
+        generateModal(userInfo[cardsLength-1]);
+        cardIndex=cardsLength-1;
+      }else{
+        body.removeChild(existingModal);
+        generateModal(userInfo[cardIndex-1]);
+        cardIndex-=1;
+      }
     } else if( clicked === nextButton ){
-      body.removeChild(existingModal);
-      generateModal(userInfo[cardIndex+1]);
-      cardIndex+=1;
+      if(cardIndex === cardsLength-1){
+        body.removeChild(existingModal);
+        generateModal(userInfo[0]);
+        cardIndex=0;
+      }else{
+        body.removeChild(existingModal);
+        generateModal(userInfo[cardIndex+1]);
+        cardIndex+=1;
+      }
     }
-
 } );
 
 search.addEventListener('keyup',(e)=> {
