@@ -8,6 +8,7 @@ const gallery = document.querySelector('#gallery');
 const search = document.querySelector('.search-container');
 const scriptTag = document.querySelector('script');
 const body = document.querySelector('body');
+const modalContainer = document.querySelector('.modal-container');
 const modalButtonsParent = document.querySelector('.modal-btn-container');
 let userInfo = [];
 let cardIndex;
@@ -81,6 +82,7 @@ function generateModal(user){
     //converts the format of telephone data into (000) 000-0000
     const telephoneNumber = `${user.phone}`;
     const rightNumber = telephoneNumber.replace( '-' , ' ');
+    const cards = document.getElementsByClassName('card'); //selecting all user cards
     //creates html for modal and give it the right user data
     cardGallery.className = 'modal-container';
     cardGallery.innerHTML=`
@@ -104,6 +106,10 @@ function generateModal(user){
     `;
     body.insertBefore(cardGallery,scriptTag); //appends modal to a page
 }
+
+
+
+
 // ------------------------------------------
 //  SEARCH
 // ------------------------------------------
@@ -114,7 +120,7 @@ searchBar.innerHTML=`
   <input type="text" id="search-input" class="search-input" placeholder="Search...">
   <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
 `;
-search.appendChild(searchBar);
+search.appendChild(searchBar); //appending search bar to the DOM
 //function that search trought user names on the page and displays matches it takes two arguments: search input and the list of users
 function searchIt(input, list){
   [...list].forEach(user=>{ //for each user in the users list
@@ -135,7 +141,7 @@ function searchIt(input, list){
 // ------------------------------------------
 //event listener that generates modal when a user card is clicked 
 gallery.addEventListener('click', (e)=> {
-  const cards = document.getElementsByClassName('card');
+  const cards = document.getElementsByClassName('card'); //selecting all user cards
   [...cards].forEach( (card)=>{ //for every card in cards array
     if( e.composedPath().includes(card) ){ //if path includes this card
       cardIndex = [...cards].indexOf(card); //take this card index
@@ -147,9 +153,9 @@ gallery.addEventListener('click', (e)=> {
 //event listener for closing modal when an x button is clicked
 body.addEventListener('click', (e)=> {
   const clicked = e.target;
-  const cardGallery = document.querySelector('.modal-container');
-  if(clicked.className.includes('close')){
-    body.removeChild(cardGallery);
+  const cardGallery = document.querySelector('.modal-container'); //selecting opened modal
+  if(clicked.className.includes('close')){ //when a closing button is clicked 
+    body.removeChild(cardGallery); // close user modal
   }
 } );
 
@@ -164,38 +170,38 @@ body.addEventListener('click', (e)=> {
 //NEEDS WORK! TO HANDLE NEXT PREV AFTER THE SEARCH 
 //event listener for previous and next button in modals
 body.addEventListener('click',(e)=> {
-  const cards = document.getElementsByClassName('card');
-  const cardsLength = cards.length;
+  const cards = document.getElementsByClassName('card'); //selecting all user cards
+  const cardsLength = cards.length; //checking the length of array
   const clicked = e.target;
   const existingModal = document.querySelector('.modal-container');
   const prevButton = document.querySelector('#modal-prev');
   const nextButton = document.querySelector('#modal-next');
 
-    if( clicked === prevButton ){
-      if(cardIndex === 0){
-        body.removeChild(existingModal);
-        generateModal(userInfo[cardsLength-1]);
-        cardIndex=cardsLength-1;
+    if( clicked === prevButton ){ //if prev button is clicked
+      if(cardIndex === 0){ //if the index of card is 0
+        body.removeChild(existingModal); //remove existing modal
+        generateModal(userInfo[cardsLength-1]); //generate the last modal from the page
+        cardIndex=cardsLength-1; //change the value of cardIndex
       }else{
-        body.removeChild(existingModal);
-        generateModal(userInfo[cardIndex-1]);
-        cardIndex-=1;
+        body.removeChild(existingModal); //remove existing modal
+        generateModal(userInfo[cardIndex-1]); //generate the previous modal from the page
+        cardIndex-=1; //change the value of cardIndex
       }
-    } else if( clicked === nextButton ){
-      if(cardIndex === cardsLength-1){
-        body.removeChild(existingModal);
-        generateModal(userInfo[0]);
-        cardIndex=0;
+    } else if( clicked === nextButton ){ //else if next button is clicked
+      if(cardIndex === cardsLength-1){ //if the last modal is choosen
+        body.removeChild(existingModal);  //remove existing modal
+        generateModal(userInfo[0]);//generate the first modal from the page
+        cardIndex=0; //change the value of cardIndex
       }else{
-        body.removeChild(existingModal);
-        generateModal(userInfo[cardIndex+1]);
-        cardIndex+=1;
+        body.removeChild(existingModal); //remove existing modal
+        generateModal(userInfo[cardIndex+1]); //generate the next modal from the page
+        cardIndex+=1; //change the value of cardIndex
       }
     }
 } );
 //event listener fo a search keyup
 search.addEventListener('keyup',(e)=> {
-  const allUsersNames = document.querySelectorAll('#name');
+  const allUsersNames = document.querySelectorAll('#name'); //selecting 
   const input = document.querySelector('.search-input');
   searchIt(input, allUsersNames); //search function on search input that takes an array of users names
 } );
