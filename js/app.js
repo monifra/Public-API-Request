@@ -12,6 +12,8 @@ const modalButtonsParent = document.querySelector('.modal-btn-container');
 let userInfo = [];
 let cardIndex;
 const searchBar = document.createElement('form');
+let visibleCards=[];
+let visibleCardsIndex;
 // ------------------------------------------
 //  FETCH FUNCTIONS WRITTEN DURING API REQUEST WORKSHOP TREEHOUSE
 // ------------------------------------------
@@ -149,6 +151,15 @@ body.addEventListener('click', (e)=> {
     body.removeChild(cardGallery);
   }
 } );
+
+//An idea for a part of next prev that depends on display of cards
+// [...cards].forEach(card=>{
+//   if(card.style.display !== "none"){
+//     // visibleCards.push(card);
+//     visibleCardsIndex = [...cards].indexOf(card);
+//   }
+//   });
+
 //NEEDS WORK! TO HANDLE NEXT PREV AFTER THE SEARCH 
 body.addEventListener('click',(e)=> {
   const cards = document.getElementsByClassName('card');
@@ -157,7 +168,7 @@ body.addEventListener('click',(e)=> {
   const existingModal = document.querySelector('.modal-container');
   const prevButton = document.querySelector('#modal-prev');
   const nextButton = document.querySelector('#modal-next');
-  
+
     if( clicked === prevButton ){
       if(cardIndex === 0){
         body.removeChild(existingModal);
@@ -187,8 +198,9 @@ search.addEventListener('keyup',(e)=> {
   searchIt(input, allUsersNames);
 } );
 
+
 search.addEventListener('click',(e)=> {
   const allUsersNames = document.querySelectorAll('#name');
   const input = document.querySelector('.search-input');
-  searchIt(input, allUsersNames);
+  searchIt(input, allUsersNames);  
 } );
