@@ -69,7 +69,6 @@ function generateHTML(data){
   // ------------------------------------------
   //function that generates a modal for a user it takes one argument: user data
 function generateModal(user){
-    const cards = document.querySelectorAll('.card');
     const cardGallery = document.createElement('div');
     const birthday = `${user.dob.date}`;
     //converts birthday data for the right format xx/xx/xx
@@ -150,7 +149,7 @@ body.addEventListener('click', (e)=> {
     body.removeChild(cardGallery);
   }
 } );
-
+//NEEDS WORK! TO HANDLE NEXT PREV AFTER THE SEARCH 
 body.addEventListener('click',(e)=> {
   const cards = document.getElementsByClassName('card');
   const cardsLength = cards.length;
@@ -158,6 +157,7 @@ body.addEventListener('click',(e)=> {
   const existingModal = document.querySelector('.modal-container');
   const prevButton = document.querySelector('#modal-prev');
   const nextButton = document.querySelector('#modal-next');
+  
     if( clicked === prevButton ){
       if(cardIndex === 0){
         body.removeChild(existingModal);
