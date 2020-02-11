@@ -133,17 +133,18 @@ function searchIt(input, list){
 // ------------------------------------------
 //  EVENT LISTENERS
 // ------------------------------------------
+//event listener that generates modal when a user card is clicked 
 gallery.addEventListener('click', (e)=> {
   const cards = document.getElementsByClassName('card');
-  [...cards].forEach( (card)=>{
-    if( e.composedPath().includes(card) ){
-      cardIndex = [...cards].indexOf(card);
-      console.log(cardIndex, card);
-      generateModal(userInfo[cardIndex]);
+  [...cards].forEach( (card)=>{ //for every card in cards array
+    if( e.composedPath().includes(card) ){ //if path includes this card
+      cardIndex = [...cards].indexOf(card); //take this card index
+      console.log(cardIndex, card); 
+      generateModal(userInfo[cardIndex]); //generate user modal taking user info with correct index number
     } 
   } );
 });
-
+//event listener for closing modal when an x button is clicked
 body.addEventListener('click', (e)=> {
   const clicked = e.target;
   const cardGallery = document.querySelector('.modal-container');
@@ -161,6 +162,7 @@ body.addEventListener('click', (e)=> {
 //   });
 
 //NEEDS WORK! TO HANDLE NEXT PREV AFTER THE SEARCH 
+//event listener for previous and next button in modals
 body.addEventListener('click',(e)=> {
   const cards = document.getElementsByClassName('card');
   const cardsLength = cards.length;
@@ -191,16 +193,16 @@ body.addEventListener('click',(e)=> {
       }
     }
 } );
-
+//event listener fo a search keyup
 search.addEventListener('keyup',(e)=> {
   const allUsersNames = document.querySelectorAll('#name');
   const input = document.querySelector('.search-input');
-  searchIt(input, allUsersNames);
+  searchIt(input, allUsersNames); //search function on search input that takes an array of users names
 } );
 
-
+//event listener fo a search if button is clicked
 search.addEventListener('click',(e)=> {
   const allUsersNames = document.querySelectorAll('#name');
   const input = document.querySelector('.search-input');
-  searchIt(input, allUsersNames);  
+  searchIt(input, allUsersNames); //search function on search input that takes an array of users names 
 } );
