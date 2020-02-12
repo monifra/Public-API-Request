@@ -1,5 +1,7 @@
 Techdegree project 5 Public API Request with Random User Generator (https://randomuser.me/)<br>
 
+I use vanilla JavaScript for this project.
+
 Public API Request is an app for a fictional company called Awesome Startup. It grabs information for 12 randomly generated employees and use the data to build 12 user cards. App requestes JSON object from the API, and parse the data to generate our users cards (it takes user image, full name, email and location). After clicking on employee card modal window opens. Modal window shows employees detailed information like full adress and birthday.<br>
 
 Extra Credit Features<br><br>
