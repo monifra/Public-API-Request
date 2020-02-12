@@ -106,10 +106,6 @@ function generateModal(user){
     `;
     body.insertBefore(cardGallery,scriptTag); //appends modal to a page
 }
-
-
-
-
 // ------------------------------------------
 //  SEARCH
 // ------------------------------------------
@@ -159,15 +155,6 @@ body.addEventListener('click', (e)=> {
   }
 } );
 
-//An idea for a part of next prev that depends on display of cards
-// [...cards].forEach(card=>{
-//   if(card.style.display !== "none"){
-//     // visibleCards.push(card);
-//     visibleCardsIndex = [...cards].indexOf(card);
-//   }
-//   });
-
-//NEEDS WORK! TO HANDLE NEXT PREV AFTER THE SEARCH 
 //event listener for previous and next button in modals
 body.addEventListener('click',(e)=> {
   const cards = document.getElementsByClassName('card'); //selecting all user cards
